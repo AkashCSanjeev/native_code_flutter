@@ -16,12 +16,19 @@ class MainActivity: FlutterActivity() {
             if(call.method == "showToast"){
                 println("Android code")
                 Toast.makeText(this,"Toast from native side",Toast.LENGTH_LONG).show()
+                result.success("Toast Successful")
                 println("Over")
+            }else if (call.method == "getData"){
+                result.success(data())
             }else{
                 println("Else")
             }
         }
 
+    }
+
+    fun data(): String {
+        return "10"
     }
 
 }

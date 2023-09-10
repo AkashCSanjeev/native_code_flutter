@@ -30,10 +30,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   MethodChannel channel = MethodChannel("toastChannel");
+  String data = "None";
 
-  showToast() {
+  showToast() async {
     print("showToast");
-    channel.invokeMethod("showToast");
+    data = await channel.invokeMethod("showToast");
+    print("Data : " + data);
+    setState(() {});
+  }
+
+  getData() async {
+    print("getData");
+    data = await channel.invokeMethod("getData");
+    print("Data : " + data);
+    setState(() {});
   }
 
   @override
@@ -44,9 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: showToast,
-          child: Text("Toast"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: showToast,
+              child: Text("Toast"),
+            ),
+            Text(data),
+            ElevatedButton(
+              onPressed: getData,
+              child: Text("get data"),
+            ),
+          ],
         ),
       ),
     );
